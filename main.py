@@ -1,4 +1,5 @@
 import random
+import time
 
 Game_Deck =[]
 
