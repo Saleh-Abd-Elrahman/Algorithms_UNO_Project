@@ -72,7 +72,7 @@ def current_hand(Current_Player, Players_Hand):
     return
 
 def valid_card():
-    
+
     return
 def start_game():
     global Game_Deck
