@@ -126,6 +126,13 @@ while True:
     splitCard = Discards[0].split(" ", 1)
     Current_Color = splitCard[0]
 
+    if len(splitCard) == 1:
+        CardValue = "Any"
+
+    else:
+        CardValue = splitCard[1]
+
+        
     if Current_Color == "Wild":
         for i in range(len(colors)):
             print("{} {}".format(i+1, colors[i]))
@@ -136,7 +143,7 @@ while True:
 
         Current_Color = colors[Color_Update - 1]
 
-        
+
 
 
     PlayerTurn += 1
