@@ -72,15 +72,15 @@ def current_hand(Current_Player, Players_Hand):
     return
 def start_game():
     global Game_Deck
-    Game_Deck = build_UNO_Deck()
-    Game_Deck = shuffle_UNO_Deck(Game_Deck)
-
-    Player_Number = int(input("How Many People are playing: "))
-    Players, Game_Deck= number_of_players(Player_Number, Game_Deck)
-
-    print(Players)
 
     while Playing:
+        Game_Deck = build_UNO_Deck()
+        Game_Deck = shuffle_UNO_Deck(Game_Deck)
+
+        Player_Number = int(input("How Many People are playing: "))
+        Players, Game_Deck = number_of_players(Player_Number, Game_Deck)
+
+        print(Players)
         return
 
     return
