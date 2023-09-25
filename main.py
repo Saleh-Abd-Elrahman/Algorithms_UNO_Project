@@ -60,5 +60,5 @@ def start_game():
 Game_Deck = build_UNO_Deck()
 Game_Deck = shuffle_UNO_Deck(Game_Deck)
 
-Players = number_of_players(3)
+Players = number_of_players(4)
 print(Players)
