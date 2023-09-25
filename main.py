@@ -56,8 +56,16 @@ def number_of_players(Num_Players):
     return Players
 
 
-def current_hand(Player, Current_Player):
-    
+def current_hand(Current_Player, Players_Hand):
+    print("Player {}".format(Current_Player + 1), "is now playing.")
+    print("Your Current Hand:")
+    print("......................")
+    for card in Players_Hand:
+        i = 1
+        print(i, card)
+        i = i+1
+    print(" ")
+
     return
 def start_game():
     Game_Deck = build_UNO_Deck()
@@ -69,3 +77,4 @@ def start_game():
     return
 
 
+Current_Player = 1
