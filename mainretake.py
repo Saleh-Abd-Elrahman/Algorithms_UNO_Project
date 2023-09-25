@@ -118,7 +118,7 @@ while True:
         print("You have played {}".format(Players[PlayerTurn][ChosenCard - 1]))
         Discards.append(Players[PlayerTurn].pop(ChosenCard - 1))
     else:
-        print("No cards available are valid to play, please pick up from the pile.")
+        print("Player {}".format(Players[PlayerTurn]), "No cards available are valid to play, please pick up from the pile.")
         Players[PlayerTurn].extend(draw_cards(1, Game_Deck))
 
     print(" ")
