@@ -55,13 +55,17 @@ def number_of_players(Num_Players):
 
     return Players
 
+
+def current_hand(Player, Current_Player):
+    
+    return
 def start_game():
     Game_Deck = build_UNO_Deck()
     Game_Deck = shuffle_UNO_Deck(Game_Deck)
 
     Player_Number = int(input("How Many People are playing: "))
     Players = number_of_players(Player_Number)
-    
+
     return
 
 
