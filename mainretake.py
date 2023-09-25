@@ -132,7 +132,7 @@ while True:
     else:
         CardValue = splitCard[1]
 
-        
+
     if Current_Color == "Wild":
         for i in range(len(colors)):
             print("{} {}".format(i+1, colors[i]))
@@ -143,6 +143,14 @@ while True:
 
         Current_Color = colors[Color_Update - 1]
 
+    if CardValue == "Reverse":
+        break
+
+    if CardValue == "Skip":
+        break
+
+    if CardValue == "Draw":
+        break
 
 
 
