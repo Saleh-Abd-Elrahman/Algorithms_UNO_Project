@@ -62,8 +62,8 @@ def current_hand(Current_Player, Players_Hand):
     print("Player {}".format(Current_Player + 1), "is now playing.")
     print("Your Current Hand:")
     print("......................")
+    i = 1
     for card in Players_Hand:
-        i = 1
         print(i, card)
         i = i+1
     print(" ")
@@ -87,7 +87,6 @@ def start_game():
     global Game_Deck
 
     while Playing:
-
         Discards = []
 
         PlayerTurn = 0
@@ -111,9 +110,6 @@ def start_game():
 
         else:
             CardValue = "Any"
-
-
-        print(Players)
 
         current_hand(PlayerTurn, Players[PlayerTurn])
 
