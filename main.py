@@ -76,6 +76,8 @@ def start_game():
 
     while Playing:
 
+        Discards = []
+
         PlayerTurn = 0
 
         Game_Deck = build_UNO_Deck()
@@ -86,12 +88,15 @@ def start_game():
         while Player_Number < 2 or Player_Number > 4:
             Player_Number = int(input("ERROR: Number of players invalid, please give a value of 2, up until 4: "))
 
-
         Players, Game_Deck = number_of_players(Player_Number, Game_Deck)
+
+        Discards.append(Game_Deck.pop(0))
 
         print(Players)
 
         current_hand(PlayerTurn, Players[PlayerTurn])
+
+        print("Top of pile: {}".format(Discards[-1]))
 
 
         return
