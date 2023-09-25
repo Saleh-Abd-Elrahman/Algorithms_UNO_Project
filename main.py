@@ -79,7 +79,7 @@ def valid_card(color, value, Players_Hand):
 
         elif color in card or value in card:
             return True
-        
+
     return False
 
 
@@ -103,6 +103,15 @@ def start_game():
         Players, Game_Deck = number_of_players(Player_Number, Game_Deck)
 
         Discards.append(Game_Deck.pop(0))
+        splitCard = Discards[0].split(" ", 1)
+        Current_Color = splitCard[0]
+
+        if Current_Color != "Wild":
+            CardValue = splitCard[1]
+
+        else:
+            CardValue = "Any"
+
 
         print(Players)
 
@@ -110,8 +119,28 @@ def start_game():
 
         print("Top of pile: {}".format(Discards[-1]))
 
+        if valid_card(Current_Color, CardValue, Players[PlayerTurn]):
+            ChosenCard = int(input("Please select a card to play: "))
+            while not valid_card(Current_Color, CardValue, [Players[PlayerTurn][ChosenCard - 1]]):
+                ChosenCard = int(input("Please choose a valid card to play: "))
 
-        return
+            print("You have played {}".format(Players[PlayerTurn][ChosenCard - 1]))
+
+            Discards.append(Players[PlayerTurn].pop(ChosenCard - 1))
+
+        else:
+            print("No cards available are valid to play, please pick up from pile.")
+            Players[PlayerTurn].extend(draw_cards(1))
+        print(" ")
+
+        PlayerTurn += 1
+
+        if PlayerTurn == Player_Number:
+            PlayerTurn = 0
+
+        elif PlayerTurn < 0:
+            PlayerTurn = Player_Number - 1
+
 
     return
 
