@@ -27,10 +27,9 @@ def build_UNO_Deck():
             if number != 0:
                 UNO_Deck.append(New_Card)
 
-        for i in range(4):
-            for wild in wilds:
-                New_Card = "{} {}".format(color, wild)
-                UNO_Deck.append(New_Card)
+    for i in range(4):
+        for wild in wilds:
+            UNO_Deck.append(wild)
 
 
     print(UNO_Deck)
@@ -71,7 +70,14 @@ def current_hand(Current_Player, Players_Hand):
 
     return
 
-def valid_card():
+def valid_card(color, value, Players_Hand):
+
+    for card in Players_Hand:
+        return
+
+
+
+
 
     return
 def start_game():
