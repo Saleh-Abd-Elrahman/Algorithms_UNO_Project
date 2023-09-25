@@ -58,7 +58,6 @@ def number_of_players(Num_Players, Game_Deck):
 
     return Players, Game_Deck
 
-
 def current_hand(Current_Player, Players_Hand):
     print("Player {}".format(Current_Player + 1), "is now playing.")
     print("Your Current Hand:")
