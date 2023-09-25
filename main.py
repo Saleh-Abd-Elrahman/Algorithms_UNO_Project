@@ -1,5 +1,6 @@
 import random
 
+Game_Deck =[]
 def build_UNO_Deck():
 
     colors = ["Red", "Green", "Yellow", "Blue"]
@@ -55,10 +56,12 @@ def number_of_players(Num_Players):
     return Players
 
 def start_game():
+    Game_Deck = build_UNO_Deck()
+    Game_Deck = shuffle_UNO_Deck(Game_Deck)
+
+    Player_Number = int(input("How Many People are playing: "))
+    Players = number_of_players(Player_Number)
+    
     return
 
-Game_Deck = build_UNO_Deck()
-Game_Deck = shuffle_UNO_Deck(Game_Deck)
 
-Players = number_of_players(4)
-print(Players)
