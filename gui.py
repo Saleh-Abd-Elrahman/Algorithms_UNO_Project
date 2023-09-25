@@ -5,19 +5,43 @@ import sys
 pygame.init()
 
 # Constants
-SCREEN_WIDTH, SCREEN_HEIGHT = 800, 600
-CARD_WIDTH, CARD_HEIGHT = 100, 150
+WINDOW_WIDTH = 800
+WINDOW_HEIGHT = 600
+CARD_WIDTH = 150
+CARD_HEIGHT = 225
+CARD_COLOR = (255, 255, 255)
+CARD_BORDER_COLOR = (0, 0, 0)
+FONT_SIZE = 24
+SYMBOL_FONT_SIZE = 48
+CARD_FONT_COLOR = (0, 0, 0)
+SYMBOL_COLOR = (255, 0, 0)
 
-# Colors
-WHITE = (255, 255, 255)
+# Create the window
+screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
+pygame.display.set_caption("Uno Card")
 
-# Create a game window
-screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-pygame.display.set_caption("Uno Game")
+# Create a font
+font = pygame.font.Font(None, FONT_SIZE)
+symbol_font = pygame.font.Font(None, SYMBOL_FONT_SIZE)
 
-def draw_card(x, y):
-    pygame.draw.rect(screen, WHITE, (x, y, CARD_WIDTH, CARD_HEIGHT))
-    pygame.draw.rect(screen, (0, 0, 0), (x, y, CARD_WIDTH, CARD_HEIGHT), 2)
+# Create a function to draw a Uno card
+def draw_card(x, y, card_color, text, symbol=None):
+    card_surface = pygame.Surface((CARD_WIDTH, CARD_HEIGHT))
+    card_surface.fill(card_color)
+    pygame.draw.rect(card_surface, CARD_BORDER_COLOR, (0, 0, CARD_WIDTH, CARD_HEIGHT), 5)
+
+    text_surface = font.render(text, True, CARD_FONT_COLOR)
+    text_rect = text_surface.get_rect(center=(CARD_WIDTH // 2, CARD_HEIGHT // 2))
+
+    card_surface.blit(text_surface, text_rect)
+
+    if symbol:
+        symbol_surface = symbol_font.render(symbol, True, SYMBOL_COLOR)
+        symbol_rect = symbol_surface.get_rect(center=(CARD_WIDTH // 2, CARD_HEIGHT // 4))
+
+        card_surface.blit(symbol_surface, symbol_rect)
+
+    screen.blit(card_surface, (x, y))
 
 # Main game loop
 running = True
@@ -26,15 +50,13 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-    # Clear the screen
-    screen.fill((0, 128, 0))
+    screen.fill((0, 0, 0))
 
-    # Draw cards
-    draw_card(100, 100)
-    draw_card(250, 100)
-    draw_card(400, 100)
+    # Draw a Uno card at (100, 100) with the text "5" and the "Red" symbol
+    draw_card(100, 100, (255, 0, 0), "5", "🔴")
 
     pygame.display.flip()
 
+# Quit Pygame
 pygame.quit()
 sys.exit()
