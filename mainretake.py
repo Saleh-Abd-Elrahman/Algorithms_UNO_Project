@@ -82,7 +82,6 @@ def start_game():
     Discards = []
     Game_Deck = build_UNO_Deck()
     Game_Deck = shuffle_UNO_Deck(Game_Deck)
-
     Player_Number = int(input("How Many People are playing: "))
 
     while Player_Number < 2 or Player_Number > 4:
@@ -106,6 +105,7 @@ start_game()
 PlayerTurn = 0
 
 while True:
+    colors = ["Red", "Green", "Yellow", "Blue"]
     current_hand(PlayerTurn)
     print("Top of pile: {}".format(Discards[-1]))
 
@@ -122,6 +122,23 @@ while True:
         Players[PlayerTurn].extend(draw_cards(1, Game_Deck))
 
     print(" ")
+
+    splitCard = Discards[0].split(" ", 1)
+    Current_Color = splitCard[0]
+
+    if Current_Color == "Wild":
+        for i in range(len(colors)):
+            print("{} {}".format(i+1, colors[i]))
+        Color_Update = int(input("What color would you like to change to: "))
+
+        while Color_Update < 1 or Color_Update > 4:
+            Color_Update = int(input("Invalid Option Given. What color would you like to change to: "))
+
+        Current_Color = colors[Color_Update - 1]
+
+        
+
+
     PlayerTurn += 1
 
     if PlayerTurn == Player_Number:
