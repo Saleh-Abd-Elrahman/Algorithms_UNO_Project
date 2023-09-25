@@ -79,6 +79,7 @@ def valid_card(color, value, Players_Hand):
 
         elif color in card or value in card:
             return True
+        
     return False
 
 
