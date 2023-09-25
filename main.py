@@ -84,9 +84,9 @@ def start_game():
         Player_Number = int(input("How Many People are playing: "))
 
         while Player_Number < 2 or Player_Number > 4:
-            print("ERROR: Number of players invalid, please give a value of 2, up until 4: ")
+            Player_Number = int(input("ERROR: Number of players invalid, please give a value of 2, up until 4: "))
 
-            
+
         Players, Game_Deck = number_of_players(Player_Number, Game_Deck)
 
         print(Players)
