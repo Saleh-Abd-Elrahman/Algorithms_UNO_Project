@@ -103,7 +103,7 @@ def start_game():
 
 start_game()
 
-PlayerTurn = 0  # Initialize player turn outside the loop
+PlayerTurn = 0  
 
 while True:
     current_hand(PlayerTurn)
