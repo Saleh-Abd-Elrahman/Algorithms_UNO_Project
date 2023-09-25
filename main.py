@@ -73,13 +73,15 @@ def current_hand(Current_Player, Players_Hand):
 def valid_card(color, value, Players_Hand):
 
     for card in Players_Hand:
-        return
+
+        if "Wild" in card:
+            return True
+
+        elif color in card or value in card:
+            return True
+    return False
 
 
-
-
-
-    return
 def start_game():
     global Game_Deck
 
