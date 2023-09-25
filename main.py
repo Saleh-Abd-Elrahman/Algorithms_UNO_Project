@@ -1,6 +1,9 @@
 import random
 
 Game_Deck =[]
+
+Playing = True
+
 def build_UNO_Deck():
 
     colors = ["Red", "Green", "Yellow", "Blue"]
@@ -38,7 +41,7 @@ def shuffle_UNO_Deck(UNO_Deck):
         UNO_Deck[cardPos], UNO_Deck[randPos] = UNO_Deck[randPos], UNO_Deck[cardPos]
     return UNO_Deck
 
-def draw_cards(NumCards):
+def draw_cards(NumCards, GameDeck):
 
     Drawn_Cards = []
 
@@ -46,14 +49,14 @@ def draw_cards(NumCards):
         Drawn_Cards.append(Game_Deck.pop(0))
     return Drawn_Cards
 
-def number_of_players(Num_Players):
+def number_of_players(Num_Players, Game_Deck):
 
     Players = []
 
     for player in range(Num_Players):
-        Players.append(draw_cards(7))
+        Players.append(draw_cards(7, Game_Deck))
 
-    return Players
+    return Players, Game_Deck
 
 
 def current_hand(Current_Player, Players_Hand):
@@ -68,13 +71,21 @@ def current_hand(Current_Player, Players_Hand):
 
     return
 def start_game():
+    global Game_Deck
     Game_Deck = build_UNO_Deck()
     Game_Deck = shuffle_UNO_Deck(Game_Deck)
 
     Player_Number = int(input("How Many People are playing: "))
-    Players = number_of_players(Player_Number)
+    Players, Game_Deck= number_of_players(Player_Number, Game_Deck)
+
+    print(Players)
+
+    while Playing:
+        return
 
     return
 
 
 Current_Player = 1
+
+start_game()
