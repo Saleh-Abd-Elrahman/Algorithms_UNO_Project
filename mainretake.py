@@ -144,6 +144,10 @@ while True:
 
         Current_Color = colors[Color_Update - 1]
 
+        if CardValue == "Draw":
+            print(Players[PlayerTurn], "is drawing 4 more cards.")
+            Players[PlayerTurn].extend(draw_cards(4, Game_Deck))
+
     if CardValue == "Reverse":
         print("Direction of play has been reversed.")
         Direction = Direction * -1
