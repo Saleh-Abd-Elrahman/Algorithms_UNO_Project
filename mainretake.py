@@ -12,7 +12,7 @@ Player_Number = 0
 def build_UNO_Deck():
     colors = ["Red", "Green", "Yellow", "Blue"]
     numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-    specials = ["Draw Two", "Skip", "Reverse"]
+    specials = ["Two Draw", "Skip", "Reverse"]
     wilds = ["Wild", "Wild Draw Four"]
 
     UNO_Deck = []
@@ -101,6 +101,7 @@ def start_game():
 
 
 start_game()
+Direction = 1
 
 PlayerTurn = 0
 
@@ -154,7 +155,7 @@ while True:
 
 
 
-    PlayerTurn += 1
+    PlayerTurn += Direction
 
     if PlayerTurn == Player_Number:
         PlayerTurn = 0
