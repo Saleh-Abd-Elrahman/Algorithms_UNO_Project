@@ -145,6 +145,7 @@ while True:
         Current_Color = colors[Color_Update - 1]
 
     if CardValue == "Reverse":
+        Direction = Direction * -1
         break
 
     if CardValue == "Skip":
@@ -152,7 +153,6 @@ while True:
 
     if CardValue == "Draw":
         break
-
 
 
     PlayerTurn += Direction
