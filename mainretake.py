@@ -153,6 +153,7 @@ while True:
         PlayerTurn += Direction
 
     if CardValue == "Draw":
+        print(Players[PlayerTurn], "is drawing 2 more cards.")
         Players[PlayerTurn].extend(draw_cards(2, Game_Deck))
 
 
