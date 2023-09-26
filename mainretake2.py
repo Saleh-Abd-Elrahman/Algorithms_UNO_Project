@@ -19,16 +19,15 @@ def build_UNO_Deck():
 
     for color in colors:
         for number in numbers:
-            New_Card = "{} {}".format(color, number)
-            UNO_Deck.append(New_Card)
             if number != 0:
+                New_Card = "{} {}".format(color, number)
+                UNO_Deck.append(New_Card)
                 UNO_Deck.append(New_Card)
 
         for special in specials:
             New_Card = "{} {}".format(color, special)
             UNO_Deck.append(New_Card)
-            if number != 0:
-                UNO_Deck.append(New_Card)
+            UNO_Deck.append(New_Card)
 
     for i in range(4):
         for wild in wilds:
@@ -38,9 +37,7 @@ def build_UNO_Deck():
 
 
 def shuffle_UNO_Deck(UNO_Deck):
-    for cardPos in range(len(UNO_Deck)):
-        randPos = random.randint(0, 107)
-        UNO_Deck[cardPos], UNO_Deck[randPos] = UNO_Deck[randPos], UNO_Deck[cardPos]
+    random.shuffle(UNO_Deck)
     return UNO_Deck
 
 
@@ -70,9 +67,7 @@ def current_hand(Current_Player):
 
 def valid_card(color, value, Players_Hand):
     for card in Players_Hand:
-        if "Wild" in card:
-            return True
-        elif color in card or value in card:
+        if "Wild" in card or color in card or value in card:
             return True
     return False
 
@@ -111,41 +106,39 @@ while True:
     print("Top of pile: {}".format(Discards[-1]))
 
     if valid_card(Current_Color, CardValue, Players[PlayerTurn]):
-        ChosenCard = int(input("Please select a card to play: "))
-        while not (1 <= ChosenCard <= len(Players[PlayerTurn])) or \
-                not valid_card(Current_Color, CardValue, [Players[PlayerTurn][ChosenCard - 1]]):
-            ChosenCard = int(input("Please choose a valid card to play: "))
+        ChosenCard = int(input("Please select a card to play: ")) - 1
+        while ChosenCard < 0 or ChosenCard >= len(Players[PlayerTurn]) or \
+                not valid_card(Current_Color, CardValue, [Players[PlayerTurn][ChosenCard]]):
+            ChosenCard = int(input("Please choose a valid card to play: ")) - 1
 
-        print("You have played {}".format(Players[PlayerTurn][ChosenCard - 1]))
-        Discards.append(Players[PlayerTurn].pop(ChosenCard - 1))
+        print("You have played {}".format(Players[PlayerTurn][ChosenCard]))
+        Discards.append(Players[PlayerTurn].pop(ChosenCard))
     else:
-        print("Player {}".format(Players[PlayerTurn]), "No cards available are valid to play, please pick up from the pile.")
+        print("Player", PlayerTurn + 1, "No cards available are valid to play, please pick up from the pile.")
         Players[PlayerTurn].extend(draw_cards(1, Game_Deck))
 
     print(" ")
 
-    splitCard = Discards[0].split(" ", 1)
+    splitCard = Discards[-1].split(" ", 1)
     Current_Color = splitCard[0]
 
     if len(splitCard) == 1:
         CardValue = "Any"
-
     else:
         CardValue = splitCard[1]
 
-
     if Current_Color == "Wild":
         for i in range(len(colors)):
-            print("{} {}".format(i+1, colors[i]))
-        Color_Update = int(input("What color would you like to change to: "))
+            print("{} {}".format(i + 1, colors[i]))
+        Color_Update = int(input("What color would you like to change to: ")) - 1
 
-        while Color_Update < 1 or Color_Update > 4:
-            Color_Update = int(input("Invalid Option Given. What color would you like to change to: "))
+        while Color_Update < 0 or Color_Update >= len(colors):
+            Color_Update = int(input("Invalid Option Given. What color would you like to change to: ")) - 1
 
-        Current_Color = colors[Color_Update - 1]
+        Current_Color = colors[Color_Update]
 
-        if CardValue == "Draw":
-            print(Players[PlayerTurn], "is drawing 4 more cards.")
+        if CardValue == "Draw Four":
+            print("Player", PlayerTurn + 1, "is drawing 4 more cards.")
             Players[PlayerTurn].extend(draw_cards(4, Game_Deck))
 
     if CardValue == "Reverse":
@@ -156,10 +149,9 @@ while True:
         print("Next Player has been skipped.")
         PlayerTurn += Direction
 
-    if CardValue == "Draw":
-        print(Players[PlayerTurn], "is drawing 2 more cards.")
+    if CardValue == "Draw Two":
+        print("Player", PlayerTurn + 1, "is drawing 2 more cards.")
         Players[PlayerTurn].extend(draw_cards(2, Game_Deck))
-
 
     PlayerTurn += Direction
 
