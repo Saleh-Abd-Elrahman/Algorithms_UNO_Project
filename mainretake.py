@@ -153,7 +153,7 @@ while True:
         PlayerTurn += Direction
 
     if CardValue == "Draw":
-        break
+        Players[PlayerTurn].extend(draw_cards(2, Game_Deck))
 
 
     PlayerTurn += Direction
