@@ -73,7 +73,7 @@ def valid_card(color, value, Players_Hand):
         card_color, card_value = card.split(" ", 1)
         if "Wild" in card:
             return True
-        elif (color in card_color) or (value in card_value):
+        elif color == card_color or value == card_value:
             return True
     return False
 
@@ -125,7 +125,7 @@ while True:
 
     print(" ")
 
-    splitCard = Discards[0].split(" ", 1)
+    splitCard = Discards[-1].split(" ", 1)
     Current_Color = splitCard[0]
 
     if len(splitCard) == 1:
@@ -145,9 +145,9 @@ while True:
 
         Current_Color = colors[Color_Update - 1]
 
-        if CardValue == "Draw":
-            print(PlayerTurn, "is drawing 4 more cards.")
-            Players[PlayerTurn].extend(draw_cards(4, Game_Deck))
+        if CardValue == "Draw Four":
+            print("Player", PlayerTurn + 2, "is drawing 4 more cards.")
+            Players[PlayerTurn + Direction].extend(draw_cards(4, Game_Deck))
 
     if CardValue == "Reverse":
         print("Direction of play has been reversed.")
@@ -157,14 +157,14 @@ while True:
         print("Next Player has been skipped.")
         PlayerTurn += Direction
 
-    if CardValue == "Draw":
-        print(PlayerTurn, "is drawing 2 more cards.")
-        Players[PlayerTurn].extend(draw_cards(2, Game_Deck))
+    if CardValue == "Draw Two":
+        print("Player", PlayerTurn + 2, "is drawing 2 more cards.")
+        Players[PlayerTurn + Direction].extend(draw_cards(2, Game_Deck))
 
 
     PlayerTurn += Direction
 
-    if PlayerTurn == Player_Number:
+    if PlayerTurn >= Player_Number:
         PlayerTurn = 0
     elif PlayerTurn < 0:
         PlayerTurn = Player_Number - 1
