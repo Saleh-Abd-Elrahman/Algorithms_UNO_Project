@@ -145,11 +145,12 @@ while True:
         Current_Color = colors[Color_Update - 1]
 
     if CardValue == "Reverse":
+        print("Direction of play has been reversed.")
         Direction = Direction * -1
-        break
 
     if CardValue == "Skip":
-        break
+        print("Next Player has been skipped.")
+        PlayerTurn += Direction
 
     if CardValue == "Draw":
         break
