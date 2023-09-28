@@ -85,8 +85,14 @@ def start_game():
     Game_Deck = shuffle_UNO_Deck(Game_Deck)
     Player_Number = int(input("How Many People are playing: "))
 
-    while Player_Number < 2 or Player_Number > 4:
-        Player_Number = int(input("ERROR: Number of players invalid, please give a value of 2, up until 4: "))
+    while Player_Number is None or Player_Number < 2 or Player_Number > 4:
+        try:
+            if not (2 <= Player_Number <= 4):
+                print("ERROR: Number of players invalid, please give a value of 2, up until 4.")
+                Player_Number = int(input("How Many People are playing: "))
+        except ValueError:
+            print("ERROR: Please enter a valid integer.")
+
 
     number_of_players(Player_Number, Game_Deck)
 
