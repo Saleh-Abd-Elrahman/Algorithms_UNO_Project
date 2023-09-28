@@ -96,9 +96,11 @@ def start_game():
     number_of_players(Player_Number, Game_Deck)
 
     top_card = Game_Deck.pop(0)
-
+    split_card = top_card.split(" ", 1)
     # add code here to check whether top card is special or wild and to remove if the case
-    
+    while top_card[0] == "Wild" or top_card[1] == "Skip" or top_card[1] == "Reverse" or top_card[1] == "Draw":
+        top_card = Game_Deck.pop(0)
+        
     Discards.append(top_card)
     split_card = top_card.split(" ", 1)
     Current_Color = split_card[0]
