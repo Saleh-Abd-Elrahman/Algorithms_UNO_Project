@@ -83,13 +83,12 @@ def start_game():
     Discards = []
     Game_Deck = build_UNO_Deck()
     Game_Deck = shuffle_UNO_Deck(Game_Deck)
-    Player_Number = int(input("How Many People are playing: "))
 
     while Player_Number is None or Player_Number < 2 or Player_Number > 4:
         try:
+            Player_Number = int(input("How Many People are playing: "))
             if not (2 <= Player_Number <= 4):
                 print("ERROR: Number of players invalid, please give a value of 2, up until 4.")
-                Player_Number = int(input("How Many People are playing: "))
         except ValueError:
             print("ERROR: Please enter a valid integer.")
 
@@ -97,6 +96,9 @@ def start_game():
     number_of_players(Player_Number, Game_Deck)
 
     top_card = Game_Deck.pop(0)
+
+    # add code here to check whether top card is special or wild and to remove if the case
+    
     Discards.append(top_card)
     split_card = top_card.split(" ", 1)
     Current_Color = split_card[0]
