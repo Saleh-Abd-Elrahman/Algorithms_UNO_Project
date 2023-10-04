@@ -9,7 +9,6 @@ Current_Color = ""
 Player_Number = 0
 
 
-
 def build_and_shuffle_UNO_deck():
     colors = ["Red", "Green", "Yellow", "Blue"]
     numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -40,6 +39,7 @@ def build_and_shuffle_UNO_deck():
         Game_Deck[cardPos], Game_Deck[randPos] = Game_Deck[randPos], Game_Deck[cardPos]
 
     top_card = Game_Deck.pop(0)
+
     split_card = top_card.split(" ", 1)
     # add code here to check whether top card is special or wild and to remove if the case
     while top_card[0] == "Wild" or top_card[1] == "Skip" or top_card[1] == "Reverse" or top_card[1] == "Draw":
@@ -47,8 +47,7 @@ def build_and_shuffle_UNO_deck():
         top_card = Game_Deck.pop(0)
         split_card = top_card.split(" ", 1)
 
-    return top_card
-    return split_card
+    return top_card, split_card
 
 
 def draw_cards(NumCards, GameDeck):
