@@ -47,7 +47,7 @@ def build_and_shuffle_UNO_deck():
         top_card = Game_Deck.pop(0)
         split_card = top_card.split(" ", 1)
 
-    return top_card, split_card
+    return Game_Deck, top_card, split_card
 
 
 def draw_cards(NumCards, GameDeck):
@@ -88,7 +88,7 @@ def start_game():
     global Game_Deck, Discards, CardValue, Current_Color, Player_Number, Players, top_card
     Discards = []
 
-    build_and_shuffle_UNO_deck()
+    Game_Deck, top_card, split_card = build_and_shuffle_UNO_deck()
 
     while Player_Number is None or Player_Number < 2 or Player_Number > 4:
         try:
