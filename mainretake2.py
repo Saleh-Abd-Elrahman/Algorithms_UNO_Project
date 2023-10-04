@@ -1,5 +1,4 @@
 import random
-import time
 
 Game_Deck = []
 Players = []
@@ -10,6 +9,7 @@ Player_Number = 0
 
 
 def build_and_shuffle_UNO_deck():
+    global number
     colors = ["Red", "Green", "Yellow", "Blue"]
     numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     specials = ["Draw Two", "Skip", "Reverse"]
@@ -127,7 +127,6 @@ while True:
         print("You have played {}".format(Players[PlayerTurn][ChosenCard - 1]))
         Discards.append(Players[PlayerTurn].pop(ChosenCard - 1))
 
-
     else:
         print("Player {}".format(Players[PlayerTurn]),
               "No cards available are valid to play, please pick up from the pile.")
@@ -153,6 +152,8 @@ while True:
             Color_Update = int(input("Invalid Option Given. What color would you like to change to: "))
 
         Current_Color = colors[Color_Update - 1]
+
+        print("Colour has been changed to: ", Current_Color)
 
         if CardValue == "Draw Four":
             print("Player", PlayerTurn + 2, "is drawing 4 more cards.")
