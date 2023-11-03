@@ -76,7 +76,7 @@ class UNOGame:
         print("Your Current Hand:")
         print("......................")
         for i, card in enumerate(self.players[self.current_player], start=1):
-            print(card)
+            print("{}. ".format(i), card)
         print(" ")
 
     def start_game(self):
