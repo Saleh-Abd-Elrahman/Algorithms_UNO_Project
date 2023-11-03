@@ -1,5 +1,6 @@
 import random
 
+
 class UNOGame:
     def __init__(self, num_players):
         self.num_players = num_players
@@ -57,11 +58,14 @@ class UNOGame:
         return False
 
     def current_hand(self):
+
+        # See why players hands are all blank at start, should be filled dto 7 cards each
+
         print(f"Player {self.current_player + 1} is now playing.")
         print("Your Current Hand:")
         print("......................")
         for i, card in enumerate(self.players[self.current_player], start=1):
-            print(i, card)
+            print(card)
         print(" ")
 
     def start_game(self):
