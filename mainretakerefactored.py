@@ -15,7 +15,8 @@ class UNOGame:
         self.discards = [self.top_card]
         self.current_color, self.card_value = self.split_card
 
-    # Time Complexity of build_and_shuffle_deck(): O(1) on initialization as the deck size remains constant.
+    # Time Complexity of build_and_shuffle_deck(): O(1) on
+    # initialization as the deck size remains constant.
     def build_and_shuffle_deck(self):
         game_deck = []
 
