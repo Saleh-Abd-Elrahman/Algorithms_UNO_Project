@@ -80,8 +80,10 @@ class UNOGame:
         self.number_of_players()
 
     def number_of_players(self):
+        print(f"Starting game with {len(self.game_deck)} cards in deck.")
         for player in range(self.num_players):
             self.players[player] = self.draw_cards(7)
+            print(f"Player {player + 1} initial cards: {self.players[player]}")
 
     def play_turn(self):
         self.current_hand()
@@ -139,6 +141,7 @@ class UNOGame:
 
     def play_game(self):
         while True:
+            self.start_game()
             self.play_turn()
 
 
