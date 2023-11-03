@@ -147,6 +147,9 @@ while Playing:
 
 
 
+
+
+
 Current_Player = 1
 
 start_game()

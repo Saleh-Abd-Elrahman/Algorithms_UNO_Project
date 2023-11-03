@@ -109,12 +109,12 @@ def start_game():
     else:
         CardValue = "Any"
 
-
+playing = True
 start_game()
 Direction = 1
 PlayerTurn = 0
 
-while True:
+while playing:
     colors = ["Red", "Green", "Yellow", "Blue"]
     current_hand(PlayerTurn)
     print("Top of pile: {}".format(Discards[-1]))
@@ -133,6 +133,10 @@ while True:
         Players[PlayerTurn].extend(draw_cards(1, Game_Deck))
 
     print(" ")
+
+    if len(Players[PlayerTurn]) == 0:
+        playing = False
+        winner = "Player {}".format(PlayerTurn + 1)
 
     splitCard = Discards[-1].split(" ", 1)
     Current_Color = splitCard[0]
@@ -177,3 +181,7 @@ while True:
         PlayerTurn = 0
     elif PlayerTurn < 0:
         PlayerTurn = Player_Number - 1
+
+
+print("Game Over")
+print(winner)

@@ -151,6 +151,12 @@ class UNOGame:
             print(f"Player {next_player + 1} is drawing 2 more cards.")
             self.players[next_player].extend(self.draw_cards(2))
 
+        if len(self.players[self.current_player]) == 0:
+            winner = "Player {}".format(self.current_player + 1)
+            print("Game Over")
+            print(winner)
+            return
+
         self.current_player = (self.current_player + self.direction) % self.num_players
 
         if self.current_player < 0:
