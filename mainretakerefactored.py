@@ -15,6 +15,7 @@ class UNOGame:
         self.discards = [self.top_card]
         self.current_color, self.card_value = self.split_card
 
+    # Time Complexity of build_and_shuffle_deck(): O(1) on initialization as the deck size remains constant.
     def build_and_shuffle_deck(self):
         game_deck = []
 
@@ -44,12 +45,18 @@ class UNOGame:
         split_card = top_card.split()
         return game_deck, top_card, split_card
 
+    # The draw_cards method pops cards from the deck, which has a time complexity of O(1) for each card drawn.
+    # If you draw 'n' cards, the time complexity for drawing all of them is O(n).
     def draw_cards(self, num_cards):
         drawn_cards = []
         for _ in range(num_cards):
             drawn_cards.append(self.game_deck.pop(0))
         return drawn_cards
 
+    # The valid_card method checks if there's a valid card in the player's hand, which requires
+    # iterating through the player's hand (usually 7 cards).
+    # So the time complexity is O(7) in the worst case, which simplifies to
+    # O(1) since the number of cards in a player's hand is constant.
     def valid_card(self, color, value, player_hand):
         for card in player_hand:
             card_parts = card.split()
@@ -59,7 +66,10 @@ class UNOGame:
 
     def current_hand(self):
 
-        # See why players hands are all blank at start, should be filled dto 7 cards each
+        # The current_hand method iterates through the player's hand,
+        # so the time complexity is O(n) as worst case, where n represents the total
+        # number of cards the player currently has in their hand.
+        # Best case would be O(1), where player has only a single card remaining.
 
         print(f"Player {self.current_player + 1} is now playing.")
         print("Your Current Hand:")
@@ -79,12 +89,18 @@ class UNOGame:
 
         self.number_of_players()
 
+    # The number_of_players method initializes the game with 7 cards for each player,
+    # which is O(num_players) in time complexity. Value is always between 2 and 4,
+    # so the worst case and best case are effectively O(4) and O(2) respectively.
     def number_of_players(self):
         print(f"Starting game with {len(self.game_deck)} cards in deck.")
         for player in range(self.num_players):
             self.players[player] = self.draw_cards(7)
             print(f"Player {player + 1} initial cards: {self.players[player]}")
 
+    # The play_turn method involves various conditional statements,
+    # but in the worst case, it doesn't depend on the number of players or
+    # cards in the deck. So, the time complexity is constant, O(1).
     def play_turn(self):
         self.current_hand()
         print("Top of pile:", self.discards[-1])
@@ -139,6 +155,9 @@ class UNOGame:
         if self.current_player < 0:
             self.current_player = self.num_players - 1
 
+    # The play_game method consists of a loop where the game is played.
+    # The loop continues indefinitely until the game ends. The time complexity depends on
+    # how long the game is played.
     def play_game(self):
         while True:
             self.start_game()
