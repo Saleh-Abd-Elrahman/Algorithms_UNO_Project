@@ -1,4 +1,48 @@
 import random
+from collections import deque
+
+import random
+
+class Node:
+    def __init__(self, data=None):
+        self.data = data
+        self.next = None
+
+class LinkedList:
+    def __init__(self):
+        self.head = None
+
+    def add_to_end(self, data):
+        new_node = Node(data)
+        if not self.head:
+            self.head = new_node
+        else:
+            current = self.head
+            while current.next:
+                current = current.next
+            current.next = new_node
+
+    def remove(self, data):
+        current = self.head
+        previous = None
+        while current:
+            if current.data == data:
+                if previous:
+                    previous.next = current.next
+                else:
+                    self.head = current.next
+                return True
+            previous = current
+            current = current.next
+        return False
+
+    def __len__(self):
+        count = 0
+        current = self.head
+        while current:
+            count += 1
+            current = current.next
+        return count
 
 
 class UNOGame:
@@ -8,7 +52,7 @@ class UNOGame:
         self.numbers = [str(i) for i in range(10)]
         self.specials = ["Draw Two", "Skip", "Reverse"]
         self.wilds = ["Wild Card", "Wild Draw Four"]
-        self.players = [[] for _ in range(num_players)]
+        self.players = [LinkedList() for _ in range(num_players)]
         self.current_player = 0
         self.direction = 1
         self.game_deck, self.top_card, self.split_card = self.build_and_shuffle_deck()
@@ -51,7 +95,9 @@ class UNOGame:
     def draw_cards(self, num_cards):
         drawn_cards = []
         for _ in range(num_cards):
-            drawn_cards.append(self.game_deck.pop(0))
+            drawn_card = self.game_deck.pop(0)
+            self.players[self.current_player].add_to_end(drawn_card)
+            drawn_cards.append(drawn_card)
         return drawn_cards
 
     # The valid_card method checks if there's a valid card in the player's hand, which requires
@@ -59,24 +105,22 @@ class UNOGame:
     # So the time complexity is O(7) in the worst case, which simplifies to
     # O(1) since the number of cards in a player's hand is constant.
     def valid_card(self, color, value, player_hand):
-        for card in player_hand:
-            card_parts = card.split()
-            if "Wild" in card or (len(card_parts) == 2 and (color == card_parts[0] or value == card_parts[1])):
+        current = player_hand.head
+        while current:
+            card_parts = current.data.split()
+            if "Wild" in current.data or (len(card_parts) == 2 and (color == card_parts[0] or value == card_parts[1])):
                 return True
+            current = current.next
         return False
 
     def current_hand(self):
-
-        # The current_hand method iterates through the player's hand,
-        # so the time complexity is O(n) as worst case, where n represents the total
-        # number of cards the player currently has in their hand.
-        # Best case would be O(1), where player has only a single card remaining.
-
         print(f"Player {self.current_player + 1} is now playing.")
         print("Your Current Hand:")
         print("......................")
-        for i, card in enumerate(self.players[self.current_player], start=1):
-            print("{}. ".format(i), card)
+        current = self.players[self.current_player].head
+        while current:
+            print(current.data)
+            current = current.next
         print(" ")
 
     def start_game(self):
@@ -96,8 +140,13 @@ class UNOGame:
     def number_of_players(self):
         print(f"Starting game with {len(self.game_deck)} cards in deck.")
         for player in range(self.num_players):
-            self.players[player] = self.draw_cards(7)
-            print(f"Player {player + 1} initial cards: {self.players[player]}")
+            cards = self.draw_cards(7)
+            print(f"Player {player + 1} initial cards:")
+            current = cards.head
+            while current:
+                print(current.data)
+                current = current.next
+            print(" ")
 
     # The play_turn method involves various conditional statements,
     # but in the worst case, it doesn't depend on the number of players or
@@ -110,14 +159,19 @@ class UNOGame:
             chosen_card = int(input("Please select a card to play: ")) - 1
 
             while not (0 <= chosen_card < len(self.players[self.current_player])) or not self.valid_card(
-                    self.current_color, self.card_value, [self.players[self.current_player][chosen_card]]):
+                    self.current_color, self.card_value, self.players[self.current_player]):
                 chosen_card = int(input("Please choose a valid card to play: ")) - 1
 
-            print("You have played", self.players[self.current_player][chosen_card])
-            self.discards.append(self.players[self.current_player].pop(chosen_card))
+            current = self.players[self.current_player].head
+            for _ in range(chosen_card):
+                current = current.next
+
+            print("You have played", current.data)
+            self.discards.append(current.data)
+            self.players[self.current_player].remove(current.data)
         else:
             print(f"Player {self.current_player + 1} No cards available are valid to play, please pick up from the pile.")
-            self.players[self.current_player].extend(self.draw_cards(1))
+            self.draw_cards(1)
 
         split_card = self.discards[-1].split()
         self.current_color, self.card_value = split_card
