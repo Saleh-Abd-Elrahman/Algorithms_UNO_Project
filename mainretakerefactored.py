@@ -75,6 +75,9 @@ class UNOGame:
         print(f"Player {self.current_player + 1} is now playing.")
         print("Your Current Hand:")
         print("......................")
+
+        sorted_hand = sorted(self.players[self.current_player], key=lambda x: (x.split()[0], x.split()[1]))
+        
         for i, card in enumerate(self.players[self.current_player], start=1):
             print("{}. ".format(i), card)
         print(" ")
