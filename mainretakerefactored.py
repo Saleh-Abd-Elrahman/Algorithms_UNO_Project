@@ -15,6 +15,14 @@ class UNOGame:
         self.discards = [self.top_card]
         self.current_color, self.card_value = self.split_card
 
+        self.card_priority = {
+            "Draw Two": 5,
+            "Skip": 5,
+            "Reverse": 5,
+            "Wild Card": 10,
+            "Wild Draw Four": 10
+        }
+
     # Time Complexity of build_and_shuffle_deck(): O(1) on
     # initialization as the deck size remains constant.
     def build_and_shuffle_deck(self):
@@ -65,6 +73,21 @@ class UNOGame:
                 return True
         return False
 
+    def suggest_best_card(self):
+        valid_cards = [card for card in self.players[self.current_player] if self.valid_card(
+            self.current_color, self.card_value, [card])]
+
+        if not valid_cards:
+            print("No valid cards to suggest.")
+            return
+
+        # Sort valid cards based on priority values
+        sorted_cards = sorted(valid_cards, key=lambda x: self.card_priority.get(x.split()[1], 0), reverse=True)
+
+        print("Suggested cards to play:")
+        for i, card in enumerate(sorted_cards, start=1):
+            print("{}. ".format(i), card)
+
     def current_hand(self):
 
         # The current_hand method iterates through the player's hand,
@@ -77,8 +100,8 @@ class UNOGame:
         print("......................")
 
         sorted_hand = sorted(self.players[self.current_player], key=lambda x: (x.split()[0], x.split()[1]))
-        
-        for i, card in enumerate(self.players[self.current_player], start=1):
+
+        for i, card in enumerate(sorted_hand, start=1):
             print("{}. ".format(i), card)
         print(" ")
 
@@ -110,7 +133,11 @@ class UNOGame:
         print("Top of pile:", self.discards[-1])
 
         if self.valid_card(self.current_color, self.card_value, self.players[self.current_player]):
-            chosen_card = int(input("Please select a card to play: ")) - 1
+            chosen_card = int(input("Please select a card to play or enter '0' to see suggestions: ")) - 1
+
+            if chosen_card == -1:
+                self.suggest_best_card()
+                chosen_card = int(input("Please select a card to play: ")) - 1
 
             while not (0 <= chosen_card < len(self.players[self.current_player])) or not self.valid_card(
                     self.current_color, self.card_value, [self.players[self.current_player][chosen_card]]):
@@ -119,7 +146,7 @@ class UNOGame:
             print("You have played", self.players[self.current_player][chosen_card])
             self.discards.append(self.players[self.current_player].pop(chosen_card))
         else:
-            print(f"Player {self.current_player + 1} No cards available are valid to play, please pick up from the pile.")
+            print(f"Player {self.current_player + 1} No cards are valid to play, please pick up from the pile.")
             self.players[self.current_player].extend(self.draw_cards(1))
 
         split_card = self.discards[-1].split()
