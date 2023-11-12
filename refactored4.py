@@ -27,7 +27,6 @@ class UNOGame:
     # initialization as the deck size remains constant.
     def build_and_shuffle_deck(self):
         game_deck = []
-
         for color in self.colors:
             for number in self.numbers:
                 for _ in range(2):
@@ -36,21 +35,16 @@ class UNOGame:
                     else:
                         card = f"{color} {number}"
                     game_deck.append(card)
-
             for special in self.specials:
                 card = f"{color} {special}"
                 game_deck.extend([card] * 2)
-
         for _ in range(4):
             game_deck.extend(self.wilds)
-
         random.shuffle(game_deck)
         top_card = game_deck.pop(0)
-
         while top_card.startswith("Wild") or top_card.split()[1] in self.specials:
             random.shuffle(game_deck)
             top_card = game_deck.pop(0)
-
         split_card = top_card.split()
         return game_deck, top_card, split_card
 
@@ -112,7 +106,7 @@ class UNOGame:
                 self.players[self.current_player],
             )
             self.current_player = next_player
-            
+
     def current_hand(self):
 
         # The current_hand method iterates through the player's hand,
