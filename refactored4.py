@@ -118,13 +118,16 @@ class UNOGame:
         print("Your Current Hand:")
         print("......................")
 
+        # Create a sorted list for display
         sorted_hand = sorted(self.players[self.current_player], key=lambda x: (x.split()[0], x.split()[1]))
 
         for i, card in enumerate(sorted_hand, start=1):
             print("{}. ".format(i), card)
+
         print(" ")
 
-        return sorted_hand
+        # Return both the sorted list and the original order
+        return sorted_hand, self.players[self.current_player]
 
     def start_game(self):
         while self.num_players < 2 or self.num_players > 4:
@@ -150,21 +153,22 @@ class UNOGame:
     # but in the worst case, it doesn't depend on the number of players or
     # cards in the deck. So, the time complexity is constant, O(1).
     def play_turn(self):
-        self.current_hand()
+        sorted_hand, original_hand = self.current_hand()
         print("Top of pile:", self.discards[-1])
 
-        if self.valid_card(self.current_color, self.card_value, self.players[self.current_player]):
-            chosen_card = int(input("Please select a card to play or enter '0' to see suggestions: ")) - 1
+        if self.valid_card(self.current_color, self.card_value, original_hand):
+            chosen_card_index = int(input("Please select a card to play or enter '0' to see suggestions: ")) - 1
 
-            if chosen_card == -1:
+            if chosen_card_index == -1:
                 self.suggest_best_card()
-                chosen_card = int(input("Please select a card to play: ")) - 1
+                chosen_card_index = int(input("Please select a card to play: ")) - 1
 
-            while not (0 <= chosen_card < len(self.players[self.current_player])) or not self.valid_card(
-                    self.current_color, self.card_value, [self.players[self.current_player][chosen_card]]):
-                chosen_card = int(input("Please choose a valid card to play: ")) - 1
+            while not (0 <= chosen_card_index < len(original_hand)) or not self.valid_card(
+                    self.current_color, self.card_value, [original_hand[chosen_card_index]]):
+                chosen_card_index = int(input("Please choose a valid card to play: ")) - 1
 
-            played_card = sorted(self.players[self.current_player], key=lambda x: (x.split()[0], x.split()[1]))[chosen_card]
+            played_card = sorted_hand[chosen_card_index]
+            chosen_card = original_hand[chosen_card_index]
 
             if played_card.split()[1] == "7":
                 self.handle_seven_rule()
@@ -173,7 +177,8 @@ class UNOGame:
                 self.handle_zero_rule()
 
             print("You have played", played_card)
-            self.discards.append(self.players[self.current_player].pop(chosen_card))
+            played_card_index = original_hand.index(played_card)
+            self.discards.append(self.players[self.current_player].pop(played_card_index))
         else:
             print(f"Player {self.current_player + 1} No cards are valid to play, please pick up from the pile.")
             self.players[self.current_player].extend(self.draw_cards(1))
