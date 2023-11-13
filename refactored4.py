@@ -124,6 +124,8 @@ class UNOGame:
             print("{}. ".format(i), card)
         print(" ")
 
+        return sorted_hand
+
     def start_game(self):
         while self.num_players < 2 or self.num_players > 4:
             try:
