@@ -164,7 +164,7 @@ class UNOGame:
                     self.current_color, self.card_value, [self.players[self.current_player][chosen_card]]):
                 chosen_card = int(input("Please choose a valid card to play: ")) - 1
 
-            played_card = self.players[self.current_player][chosen_card]
+            played_card = sorted(self.players[self.current_player], key=lambda x: (x.split()[0], x.split()[1]))[chosen_card]
 
             if played_card.split()[1] == "7":
                 self.handle_seven_rule()
