@@ -87,8 +87,7 @@ class UNOGame:
         target_player = int(input("Choose a player to swap hands with (1 to {}): ".format(self.num_players))) - 1
 
         while not (0 <= target_player < self.num_players) or target_player == self.current_player:
-            target_player = int(
-                input("Invalid option. Choose a different player (1 to {}): ".format(self.num_players))) - 1
+            target_player = int(input("Invalid option. Choose a different player (1 to {}): ".format(self.num_players))) - 1
 
         self.players[self.current_player], self.players[target_player] = (
             self.players[target_player],
@@ -176,7 +175,7 @@ class UNOGame:
             if played_card.split()[1] == "0":
                 self.handle_zero_rule()
 
-            print("You have played", played_card)
+            print("You have played", chosen_card)
             played_card_index = original_hand.index(played_card)
             self.discards.append(self.players[self.current_player].pop(played_card_index))
         else:
