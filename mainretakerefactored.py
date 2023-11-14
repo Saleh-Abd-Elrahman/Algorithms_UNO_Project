@@ -130,6 +130,13 @@ class UNOGame:
     # but in the worst case, it doesn't depend on the number of players or
     # cards in the deck. So, the time complexity is constant, O(1).
     def play_turn(self):
+
+        if len(self.players[self.current_player]) == 0:
+            winner = "Player {}".format(self.current_player + 1)
+            print("Game Over")
+            print("WINNER IS: ", winner)
+            return
+        
         self.current_hand()
         print("Top of pile:", self.discards[-1])
 
@@ -181,12 +188,6 @@ class UNOGame:
             next_player = (self.current_player + self.direction) % self.num_players
             print(f"Player {next_player + 1} is drawing 2 more cards.")
             self.players[next_player].extend(self.draw_cards(2))
-
-        if len(self.players[self.current_player]) == 0:
-            winner = "Player {}".format(self.current_player + 1)
-            print("Game Over")
-            print(winner)
-            return
 
         self.current_player = (self.current_player + self.direction) % self.num_players
 
