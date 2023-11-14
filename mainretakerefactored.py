@@ -123,6 +123,7 @@ class UNOGame:
         print(f"Starting game with {len(self.game_deck)} cards in deck.")
         for player in range(self.num_players):
             self.players[player] = self.draw_cards(7)
+            self.players[player] = sorted(self.players[player], key=lambda x: (x.split()[0], x.split()[1]))
             print(f"Player {player + 1} initial cards: {self.players[player]}")
 
     # The play_turn method involves various conditional statements,
