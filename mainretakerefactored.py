@@ -155,7 +155,7 @@ class UNOGame:
 
         if self.current_color == "Wild":
             for i, color in enumerate(self.colors, start=1):
-                print(f"{i} {color}")
+                print(f"{i}. {color}")
             color_update = int(input("What color would you like to change to: ")) - 1
 
             while color_update < 0 or color_update >= len(self.colors):
@@ -197,8 +197,8 @@ class UNOGame:
     # The loop continues indefinitely until the game ends. The time complexity depends on
     # how long the game is played.
     def play_game(self):
+        self.start_game()
         while True:
-            self.start_game()
             self.play_turn()
 
 
